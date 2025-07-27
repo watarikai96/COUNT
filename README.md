@@ -79,7 +79,7 @@ The following terms are claimed as unregistered trademarks of TiME Disciplinary 
 
 - COUNT™
 - COUNT App™
-- Discipline Engine™
+- QuietCraft Theme™
 
 These represent original systems and frameworks owned by TiME Disciplinary Inc. Unauthorized use is strictly forbidden.
 
