@@ -6,6 +6,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.AlertDialogDefaults.containerColor
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -24,6 +25,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.count.data.Count
 import com.count.data.CountPeriod
+import com.count.ui.theme.QCColors
+import com.count.ui.theme.QCSpacing
+import com.count.ui.theme.QCTypography
 import org.w3c.dom.Text
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -45,12 +49,15 @@ fun COUNTScreen(){
     // -- UI --
     Scaffold(
         floatingActionButton = {
-            FloatingActionButton(onClick = {
-                //  TODO: Open "Add Counter" dialog (Step 3)
-            }) {
+            FloatingActionButton(
+                onClick = { /* TODO: Open "Add Counter" dialog (Step 3) */ },
+                containerColor = QCColors.primary, // Branded Button Color
+                contentColor = QCColors.onPrimary // Branded Icon Color
+                ){
                 Icon(Icons.Default.Add, contentDescription = "Add Counter")
             }
-        }
+        },
+        containerColor = QCColors.background // Branded Background
     ){  innerPadding ->
         LazyColumn(
             modifier = Modifier.padding(innerPadding)
@@ -69,24 +76,42 @@ fun COUNTScreen(){
 @Composable
 fun COUNTCard(count: Count){
     Card(
-        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-        elevation = CardDefaults.cardElevation(2.dp)
+        modifier = Modifier.padding(
+            horizontal = QCSpacing.m,  // Branded Spacing
+            vertical = QCSpacing.s
+        ),
+        colors = CardDefaults.cardColors(
+            containerColor = QCColors.surface // Branded Card Color
+        ),
+        elevation = CardDefaults.cardElevation(QCSpacing.xs)
     ) {
         //Layout: Name (left), Count (right), Target (optional, right)
         ListItem(
-            headlineContent = { Text(count.name, style = MaterialTheme.typography.titleLarge)},
-            supportingContent = { Text(count.period.name, style = MaterialTheme.typography.labelSmall)},
+            headlineContent = {
+                Text(
+                count.name,
+                style = QCTypography.titleLarge,
+                color = QCColors.onSurface
+                )
+            },
+            supportingContent = {
+                Text(count.period.name,
+                    style = QCTypography.labelSmall,
+                    color = QCColors.primary
+                )
+            },
             trailingContent = {
                 Row{
                     Text(
                         count.count.toString(),
-                        style = MaterialTheme.typography.headlineMedium
+                        style = QCTypography.headlineMedium,
+                        color = QCColors.onSurface
                     )
                     if (count.target != null) {
                         Text(
-                            " /${count.target}",
-                            color = MaterialTheme.colorScheme.primary,
-                            style = MaterialTheme.typography.titleMedium
+                            " / ${count.target}",
+                            style = QCTypography.titleMedium,
+                            color = QCColors.primary
                         )
                     }
                 }
